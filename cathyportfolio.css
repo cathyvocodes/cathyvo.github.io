@@ -1,0 +1,457 @@
+/* Reset styling to default */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    position: fixed; /* Position relative to the header */
+    top: 35px; /* Adjust this value as needed to align with the toggle */
+    left: 20px; /* Adjust this value to position it from the left */
+    width: 100px; /* Set a desired width for the logo */
+    height: auto; /* Keep the aspect ratio */
+    z-index: 1001; /* Ensure it stays on top of other elements */
+}
+
+
+
+:root {
+    --sz: 2vmin; /* Reduced size for toggle */
+    --sz1: calc(var(--sz) / 10);
+    --on: #8dc47fd2; 
+    --no: #2b471dc5;
+    --bg: #212121;
+    --tr: all 0.5s ease 0s;
+}
+
+@property --deg {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 180deg;
+}
+
+body {
+    background: radial-gradient(var(--bg), #222);
+    overflow-x: hidden;
+}
+
+/* Toggle button styles */
+.toggle {
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    width: calc(var(--sz) * 4);
+    height: calc(var(--sz) * 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensures toggle stays on top */
+}
+
+input {
+    display: none;
+}
+
+label {
+    --deg: 180deg;
+    position: absolute;
+    width: calc(var(--sz) * 4);
+    height: calc(var(--sz) * 2);
+    background: 
+      conic-gradient(from 0deg at 50% 50%, #fff0 0 var(--deg), var(--no) 0 100%),
+      conic-gradient(from calc(var(--deg) + 0deg) at 50% 50%, var(--on) 0 50%, #fff0 0 100%),
+      #272727;
+    border-radius: var(--sz);
+    pointer-events: none;
+    transition: var(--tr);
+    transition-property: --deg;
+}
+
+#btn:checked + label {
+    --deg: 360deg;
+}
+
+label:before {
+    content: "";
+    position: absolute;
+    width: calc(var(--sz) * 1);
+    height: calc((var(--sz) * 2) + 2px);
+    left: calc(var(--sz1) * 15);
+    top: -1px;
+    transition: var(--tr);
+    --bg1: radial-gradient(circle at calc(0% - 2px) 50%, #fff0 calc(var(--sz1) * 2), var(--bg) calc(calc(var(--sz1) * 2) + 1px) 100%);
+    --bg2: radial-gradient(circle at calc(100% + 2px) 50%, #fff0 calc(var(--sz1) * 2), var(--bg) calc(calc(var(--sz1) * 2) + 1px) 100%);
+    background: var(--bg1), var(--bg1), var(--bg2), var(--bg2), #f0f0;
+    background-repeat: no-repeat;
+    background-size: calc(var(--sz1) * 2.06) calc((var(--sz1) * 4) + 2px);
+}
+
+label:after {
+    content: "";
+    position: absolute;
+    background: var(--bg);
+    width: calc(var(--sz) * 3.12);
+    height: calc(var(--sz1) * 12);
+    left: calc(var(--sz1) * 4.25);
+    top: calc(var(--sz1) * 4);
+    transition: var(--tr);
+    border-radius: var(--sz);
+}
+
+.thumb {
+    position: absolute;
+    width: calc(var(--sz) * 1.5);
+    height: calc(var(--sz) * 1.2);
+    top: calc(var(--sz) / 2.5);
+    left: calc(var(--sz) / 2.25);
+    background: var(--no);
+    border-radius: var(--sz);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: all;
+    border: calc(var(--sz1) * 1.5) solid var(--bg);
+    transition: var(--tr);
+    transition-property: left;
+}
+
+label .thumb:hover {
+    background: var(--on);
+}
+
+#btn:checked + label .thumb {
+    left: calc(100% - calc(var(--sz) / 0.5));
+    background: var(--on);
+}
+
+#btn:checked + label .thumb:hover {
+    background: var(--no);
+}
+
+/* Layout */
+header {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.intro-section {
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.typing {
+    display: inline-block;
+    border-right: 2px solid rgba(255, 255, 255, 0.85);
+    white-space: nowrap;
+    font-size: 80px;
+    overflow: hidden;
+    animation: typing 2.75s steps(10, end) forwards, blink-caret 0.75s step-end infinite;
+    margin-bottom: 20px;
+}
+
+.marquee, .twoMarquee {
+    position: relative;
+    height: 95px;
+    width: 100%;
+    background-color: rgba(200, 222, 200, 0.5);
+    color: rgba(255, 255, 255, 0.507);
+    font-size: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 50px; /* Space after scroll */
+}
+
+.marquee span, .twoMarquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 30s linear infinite;
+}
+
+#resume {
+    padding: 50px;
+    background: radial-gradient(var(--bg), #222);
+    min-height: 100vh;
+    text-align: center;
+}
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+  
+  :root {
+    --card-height: 65vh;
+    --card-width: calc(var(--card-height) / 1.5);
+  }
+  
+  #resume {
+      padding: 50px;
+      background-color: #000000;
+      text-align: center; /* Center the h2 and h3 */
+  }
+  
+  @property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+  
+  :root {
+    --card-height: 65vh;
+    --card-width: calc(var(--card-height) / 1.5);
+  }
+  
+  #resume {
+      padding: 50px;
+      background-color: #000000;
+      text-align: center; /* Center the h2 and h3 */
+  }
+
+  .box-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+  }
+  
+  .box {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: repeating-conic-gradient(from var(--a), #8dc47fd2 0%, #8dc47fd2 5%, transparent 5%, transparent 40%, #8dc47fd2 50%);
+    animation: animate 4s linear infinite;
+    border-radius: 15px;
+    margin: 20px;
+    z-index: 1; /* Ensure box is above the glow */
+}
+
+@property --a {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg; 
+}
+
+@keyframes animate {
+    0% {
+        --a: 0deg;
+    }
+    100% {
+        --a: 360deg;
+    }
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%; /* Adjusted size for glow */
+    background: repeating-conic-gradient(from var(--a), #2b471dc5 0%, #2b471dc5 5%, transparent 5%, transparent 40%, #2b471dc5 50%);
+    animation: animate 4s linear infinite;
+    animation-delay: -1s;
+    border-radius: 15px;
+    top: 0%; /* Center the glow */
+    left: 0%; /* Center the glow */
+    z-index: 0; /* Ensure glow is below the box */
+}
+
+.box::after {
+    content: '';
+    position: absolute;
+    inset: 8px; /* Control the inset for glow effect */
+    background: radial-gradient(var(--bg), #222);
+    border-radius: 15px;
+    border: 8px solid #00000000;
+}
+
+.box-content {
+    position: absolute; /* Position relative to the box */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the size of the content */
+    color: white; /* Text color */
+    font-size: 24px; /* Font size */
+    text-align: center; /* Center the text */
+    z-index: 2; /* Ensure text is above the glow effect */
+    font-family: Arial, sans-serif; /* Font family */
+}
+.box-content {
+    position: absolute; /* Position relative to the box */
+    top: 40%; /* Center vertically */
+    left: 40%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the size of the content */
+    color: rgba(255, 255, 255, 0.856); /* Text color */
+    font-size: 15px; /* Font size */
+    text-align: left; /* Center the text */
+    z-index: 2; /* Ensure text is above the glow effect */
+    line-height: 1.5; /* Space between lines */
+    margin-top: 10px;
+}
+
+.eduBox-container, .projBox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+  }
+  
+  .eduBox, .projBox {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: repeating-conic-gradient(from var(--a), #797e78d2 0%, #797e78d2 5%, transparent 5%, transparent 40%, #797e78d2 50%);
+    animation: animate 4s linear infinite;
+    border-radius: 15px;
+    margin: 20px;
+    z-index: 1; /* Ensure box is above the glow */
+}
+
+@property --a {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg; 
+}
+
+@keyframes animate {
+    0% {
+        --a: 0deg;
+    }
+    100% {
+        --a: 360deg;
+    }
+}
+
+.eduBox::before, .projBox::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%; /* Adjusted size for glow */
+    background: repeating-conic-gradient(from var(--a), #000000a4 0%, #000000a4 5%, transparent 5%, transparent 40%, #000000a4 50%);
+    animation: animate 4s linear infinite;
+    animation-delay: -1s;
+    border-radius: 15px;
+    top: 0%; /* Center the glow */
+    left: 0%; /* Center the glow */
+    z-index: 0; /* Ensure glow is below the box */
+}
+
+.eduBox::after, .projBox::after {
+    content: '';
+    position: absolute;
+    inset: 8px; /* Control the inset for glow effect */
+    background: radial-gradient(var(--bg), #222);
+    border-radius: 15px;
+    border: 8px solid #00000000;
+}
+
+.eduBox-content, .projBox-content {
+    position: absolute; /* Position relative to the box */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the size of the content */
+    color: white; /* Text color */
+    font-size: 24px; /* Font size */
+    text-align: center; /* Center the text */
+    z-index: 2; /* Ensure text is above the glow effect */
+    font-family: Arial, sans-serif; /* Font family */
+}
+.eduBox-content, .projBox-content {
+    position: absolute; /* Position relative to the box */
+    top: 40%; /* Center vertically */
+    left: 40%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the size of the content */
+    color: rgba(255, 255, 255, 0.856); /* Text color */
+    font-size: 15px; /* Font size */
+    text-align: left; /* Center the text */
+    z-index: 2; /* Ensure text is above the glow effect */
+    line-height: 1.5; /* Space between lines */
+    margin-top: 10px;
+}
+
+/* Animations */
+@keyframes typing {
+    0% { width: 0; }
+    90%, 100% { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: rgba(255, 255, 255, 0.85); }
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes twoMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.marquee:hover span, .twoMarquee:hover span {
+    animation-play-state: paused;
+}
+
+h1:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+h2 {
+    height: 10vh;
+    font-size: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+h3 {
+    justify-content: center;
+    font-size: 50px;
+    margin-top: 40px;
+}
+
+footer {
+    background-color: #333; /* Dark background */
+    color: white;           /* White text */
+    text-align: center;     /* Centered text */
+    padding: 20px;         /* Padding around the footer */
+    position: relative;     /* Relative positioning */
+    bottom: 0;              /* Align to the bottom */
+    width: 100%;            /* Full width */
+}
+
+footer a {
+    color: #8dc47fd2;         /* Link color */
+    text-decoration: none;  /* Remove underline */
+}
+
+footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
