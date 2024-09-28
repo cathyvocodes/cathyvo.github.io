@@ -14,14 +14,7 @@ body {
     padding: 0;
 }
 
-.logo {
-    position: fixed; /* Position relative to the header */
-    top: 35px; /* Adjust this value as needed to align with the toggle */
-    left: 20px; /* Adjust this value to position it from the left */
-    width: 100px; /* Set a desired width for the logo */
-    height: auto; /* Keep the aspect ratio */
-    z-index: 1001; /* Ensure it stays on top of other elements */
-}
+
 
 
 
